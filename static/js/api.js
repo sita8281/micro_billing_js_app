@@ -1,3 +1,6 @@
+import { notifyError, notifyWarning } from "./utils.js";
+
+
 class HttpClient {
   constructor() {
     this.host = null;
@@ -8,6 +11,7 @@ class HttpClient {
     this.baseUrl = '';
     this.headers = {
       'Accept-Encoding': 'identity',
+      'Content-Type': 'application/json',
     };
     this.authToken = null;
   }
@@ -52,33 +56,32 @@ class HttpClient {
 
       if (!response.ok) {
         const errorData = await this._parseResponse(response);
-        throw {
-          status: response.status,
-          detail: errorData.detail || response.statusText,
-          description: 'Server error',
-          payload: errorData
-        };
+        return errorData;
       }
 
       return await this._parseResponse(response);
     } catch (error) {
       if (error.name === 'AbortError') {
+        
+        notifyWarning("Превышено время ожидания ответа от сервера")
         throw {
           status: 408,
-          detail: 'Request timeout',
-          description: 'The request took too long'
+          detail: 'Timeout request',
+          description: 'Превышено время ожидания ответа от сервера'
         };
       }
       
       // If it's our own error object, rethrow it
       if (error.status) {
+        notifyError("Неудалось установить соединение с сервером");
         throw error;
       }
       
+      notifyError("Неудалось установить соединение с сервером");
       throw {
         status: 600,
         detail: error.message,
-        description: 'Connection error',
+        description: 'Ошибка соединения',
         payload: {}
       };
     }
@@ -138,7 +141,7 @@ class HttpClient {
   }
 
   async createFolder(name, parentId) {
-    return this._post('/folders', { name, parent_id: parentId });
+    return this._post('/folders/', { name, parent_id: parentId });
   }
 
   async updateFolder(folderId, { name, parentId }) {

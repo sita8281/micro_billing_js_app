@@ -20,15 +20,20 @@ function notify(message, variant, icon, duration) {
     });
 
     document.body.append(alert);
-    return alert.toast();
+    try {
+        alert.toast();
+    } catch {
+        alert.toast();
+    }
+    
 }
 
 function notifyWarning(message) {
-    notify(message, 'warning', 'exclamation-triangle', 3000)
+    notify(message, 'warning', 'exclamation-triangle', 4000)
 }
 
 function notifyError(message) {
-    notify(message, 'danger', 'exclamation-triangle', 3000)
+    notify(message, 'danger', 'exclamation-octagon', 4000)
 }
 
 function notifySuccess(message) {
@@ -36,8 +41,51 @@ function notifySuccess(message) {
 }
 
 function notifyInfo(message) {
-    notify(message, 'primary', 'info-circle', 3000)
+    notify(message, 'primary', 'info-circle', 4000)
 }
 
 
-export { notify, notifyError, notifyInfo, notifySuccess, notifyWarning };
+function getSelectedFolderId() {
+    const usersTree = $.fn.zTree.getZTreeObj("treeDemo");
+    const selectedNodes = usersTree.getSelectedNodes();
+    if (selectedNodes.length < 1) {
+        return false;
+    }
+    const nodeId = selectedNodes[0].id
+    if (typeof nodeId == "string" && nodeId[0] == "f") {
+        return Number(nodeId.slice(1));
+    }
+}
+
+function getSelectedUserId() {
+    const usersTree = $.fn.zTree.getZTreeObj("treeDemo");
+    const selectedNodes = usersTree.getSelectedNodes();
+    if (selectedNodes.length < 1) {
+        return false;
+    }
+    const nodeId = selectedNodes[0].id
+    if (typeof nodeId == "string" && nodeId[0] == "f") {
+        return false;
+    }
+    return Number(nodeId);
+
+}
+
+function getNodeTreeview() {
+    const usersTree = $.fn.zTree.getZTreeObj("treeDemo");
+    const selectedNodes = usersTree.getSelectedNodes();
+    if (selectedNodes.length < 1) {
+        return false;
+    };
+    return selectedNodes[0]
+}
+
+export { notify,
+    notifyError,
+    notifyInfo,
+    notifySuccess,
+    notifyWarning,
+    getSelectedFolderId,
+    getSelectedUserId, 
+    getNodeTreeview 
+};

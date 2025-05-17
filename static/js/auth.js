@@ -1,4 +1,5 @@
 import { apiAuthUrl } from "./config.js";
+import { notifyError } from "./utils.js";
 
 
 async function initAuth() {
@@ -54,10 +55,18 @@ function checkAuth(login, password) {
 }
 
 async function verifyToken(token) {
-    let response = await fetch(apiAuthUrl, {headers: {'Authorization': token}})
-    if (response.status == 200) {
-        return true;
+    try {
+        let response = await fetch(apiAuthUrl, {headers: {'Authorization': token}})
+        console.log(response);
+        
+        if (response.status == 200) {
+            return true;
+        }
+    } catch {
+        notifyError("Неудалось авторизоваться на сервере, из за ошибки соединения")
+        throw (err);
     }
+    
 }
 
 function setAuthToken(login, password) {

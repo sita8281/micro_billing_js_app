@@ -7,13 +7,15 @@
 		<script src="/gui_billing/static/js/jquery-1.4.4.min.js"></script>
 		<script src="/gui_billing/static/js/jquery.ztree.all.min.js"></script>
 		<script type="module" src="/gui_billing/static/js/app.js"></script>
-		<script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/shoelace-autoloader.js"></script>
+		<script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/shoelace.js" ></script>
 		<link rel="stylesheet" href="/gui_billing/static/css/zTreeStyle/zTreeStyle.css" />
 		<link rel="stylesheet" href="/gui_billing/static/css/index.css" />
 		<link rel="stylesheet" href="/gui_billing/static/css/auth-form.css" />
 		<link rel="stylesheet" href="/gui_billing/static/css/tree-users.css" />
 		<link rel="stylesheet" href="/gui_billing/static/css/top-panel.css" />
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/themes/light.css" />
+
+
 		
 
 	</head>
@@ -55,18 +57,23 @@
 
 		<!-- Окно создание новой папки -->
 		<sl-dialog label="Создание папки" class="create-folder-window">
-  			<sl-input placeholder="Введите название папки"></sl-input>
+  			<sl-input placeholder="Введите название папки" class="add-folder-name"></sl-input>
   			<sl-button slot="footer" variant="primary" class="add-folder-action">Создать</sl-button>
 			<sl-button slot="footer" variant="primary" class="close-folder-window">Закрыть</sl-button>
 		</sl-dialog>
 
-		<!-- Предупреждение, папка не выбрана -->
-		<sl-alert variant="warning" duration="3000" class="alert-folder-not-select" closable>
-    		<sl-icon slot="icon" name="exclamation-triangle"></sl-icon>
-    		<strong>Папка на выбрана</strong><br />
-    		Выберите папку в которой хотите создать новую папку
-  		</sl-alert>
+		<!-- Окно с вопросом -->
+		<sl-dialog label="Вопрос" class="delete-folder-window">
+			<span>Выполнить действие?</span>
+  			<sl-button slot="footer" variant="primary" class="window-ask-delete-folder-yes">Да</sl-button>
+			<sl-button slot="footer" variant="primary" class="window-ask-delete-folder-no">Нет</sl-button>
+		</sl-dialog>
 	</div>
+
+
+	<!-- нужно для подгрузки js кода -->
+	<sl-alert style="display: none;"></sl-alert>
+
 
 
 	

@@ -1,11 +1,29 @@
-import { notifyError, notifyInfo, notifySuccess, notifyWarning } from "./utils.js";
+import { notifyError, notifyInfo, notifySuccess, notifyWarning, getSelectedFolderId, getSelectedUserId } from "./utils.js";
+import { httpClient } from "./api.js";
+import { deleteFolderWithServer } from "./folders/delete.js";
+import { deleteUserWithServer } from "./users/delete.js";
 
 function initTopPanelButtons() {
     const addUserBtn = document.getElementById("add-user-btn")
-    const removeBtn = document.getElementById("delete-btn")
     const updateBtn = document.getElementById("update-btn")
 
     initFolder();
+    initDelete();
+}
+
+function initDelete() {
+    const removeBtn = document.getElementById("delete-btn");
+    removeBtn.addEventListener("click", async () => {
+        const selUser = getSelectedUserId();
+        const selFolder = getSelectedFolderId();
+        if (selUser) {
+            await deleteUserWithServer(selUser);
+        } else if (selFolder) {
+            await deleteFolderWithServer(selFolder);
+        } else {
+            notifyWarning("Объект не выбран")
+        }
+    })
 }
 
 
@@ -14,27 +32,13 @@ function initFolder() {
     const closeWinAddFolder = document.querySelector(".close-folder-window")
     const actionButtonAddFolder = document.querySelector(".add-folder-action")
     const window = document.querySelector('.create-folder-window');
-    const usersTree = $.fn.zTree.getZTreeObj("treeDemo");
-    const alertNotSelectFolder = document.querySelector(".alert-folder-not-select")
 
     openWinAddFolder.addEventListener("click", () => {
-        const selectedNodes = usersTree.getSelectedNodes();
-
-        if (selectedNodes.length > 0) {
-            const nodeId = selectedNodes[0].id
-            if (typeof nodeId == "string" && nodeId[0] == "f") {
-                console.log(selectedNodes[0]);  
-                window.show();
-            } else {
-                notifyWarning("Выберите корневую папку");
-            }
-        } else {
-            notifyWarning("Объект не выбран")
+        if (getSelectedFolderId()) {
+            window.show();
+        } else { 
+            notifyWarning("Для создания новой папки, выберите корневую для неё")
         }
-        
-        
-        
-        
     })
 
     closeWinAddFolder.addEventListener("click", () => {
@@ -44,8 +48,24 @@ function initFolder() {
     openWinAddFolder.addEventListener("click", () => {
         
     })
+    actionButtonAddFolder.addEventListener("click", async () => {
+        const nameFolder = document.querySelector('.add-folder-name').value;
+        const parentId = getSelectedFolderId();
+        console.log(nameFolder);
+        
+        await createFolderWithServer(parentId, nameFolder);
+    })
+}
 
-
+async function createFolderWithServer(parent, name) {
+    const window = document.querySelector('.create-folder-window');
+    const response = await httpClient.createFolder(name, parent);
+    if (response.status == 201) {
+        notifySuccess(response.description);
+        window.hide();
+    }
+    notifyWarning(response.description);
+    
 }
 
 export { initTopPanelButtons };
