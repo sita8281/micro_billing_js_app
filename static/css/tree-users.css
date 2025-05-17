@@ -1,0 +1,8 @@
+.tree-container {
+    overflow-x: scroll;
+    max-width: 500px;
+    height: calc(100vh - 45px);
+    max-height: 100vh;
+    border: none;
+    /* border-right: 3px solid rgb(36, 116, 236); */
+}

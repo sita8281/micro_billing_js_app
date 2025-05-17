@@ -1,0 +1,18 @@
+.top-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgb(255, 255, 255);
+    height: 40px;
+    width: 100%;
+    -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    z-index: 10;
+}
+
+.top-panel-pass {
+    display: flex;
+    min-height: 45px;
+    width: 100%;
+}

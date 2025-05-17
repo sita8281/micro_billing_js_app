@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Document</title>
+		<script src="/gui_billing/static/js/jquery-1.4.4.min.js"></script>
+		<script src="/gui_billing/static/js/jquery.ztree.all.min.js"></script>
+		<script type="module" src="/gui_billing/static/js/app.js"></script>
+		<script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/shoelace-autoloader.js"></script>
+		<link rel="stylesheet" href="/gui_billing/static/css/zTreeStyle/zTreeStyle.css" />
+		<link rel="stylesheet" href="/gui_billing/static/css/index.css" />
+		<link rel="stylesheet" href="/gui_billing/static/css/auth-form.css" />
+		<link rel="stylesheet" href="/gui_billing/static/css/tree-users.css" />
+		<link rel="stylesheet" href="/gui_billing/static/css/top-panel.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/themes/light.css" />
+		
+
+	</head>
+<body>
+	<div class="main">
+		<div class="top-panel">
+			<sl-icon-button name="folder-plus" id="add-folder-btn" style="font-size: 1.5rem;"></sl-icon-button>
+			<sl-icon-button name="person-add" id="add-user-btn" style="font-size: 1.5rem;"></sl-icon-button>
+			<sl-icon-button name="trash3" id="delete-btn" style="font-size: 1.5rem;"></sl-icon-button>
+			<sl-icon-button name="arrow-repeat" id="update-btn" style="font-size: 1.5rem;"></sl-icon-button>
+			<sl-icon-button name="pencil" id="change-btn" style="font-size: 1.5rem;"></sl-icon-button>
+		</div>
+		
+		<div class="top-panel-pass"></div>
+
+		<!-- Дерево отображения пользователей -->
+		<div class="tree-container">
+			<ul id="treeDemo" class="ztree"></ul>
+		</div>
+		
+		<!-- Форма авторизации (скрыта по умолчанию) -->
+		<div class="auth-background">
+			<div class="auth-form">
+				<div class="form-group">
+					<label for="username">Логин:</label>
+					<input type="text" id="username">
+				</div>
+				
+				<div class="form-group">
+					<label for="password">Пароль:</label>
+					<input type="password" id="password">
+				</div>
+				
+				<div class="form-group">
+					<button class="auth-button">Войти</button>
+				</div>
+			</div>
+		</div>	
+
+		<!-- Окно создание новой папки -->
+		<sl-dialog label="Создание папки" class="create-folder-window">
+  			<sl-input placeholder="Введите название папки"></sl-input>
+  			<sl-button slot="footer" variant="primary" class="add-folder-action">Создать</sl-button>
+			<sl-button slot="footer" variant="primary" class="close-folder-window">Закрыть</sl-button>
+		</sl-dialog>
+
+		<!-- Предупреждение, папка не выбрана -->
+		<sl-alert variant="warning" duration="3000" class="alert-folder-not-select" closable>
+    		<sl-icon slot="icon" name="exclamation-triangle"></sl-icon>
+    		<strong>Папка на выбрана</strong><br />
+    		Выберите папку в которой хотите создать новую папку
+  		</sl-alert>
+	</div>
+
+
+	
+
+
+
+</body>
+</html>
