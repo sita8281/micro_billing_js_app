@@ -2,13 +2,25 @@ import { notifyError, notifyInfo, notifySuccess, notifyWarning, getSelectedFolde
 import { httpClient } from "./api.js";
 import { deleteFolderWithServer } from "./folders/delete.js";
 import { deleteUserWithServer } from "./users/delete.js";
+import { windowCreateUser } from "./users/delete.js"
 
 function initTopPanelButtons() {
-    const addUserBtn = document.getElementById("add-user-btn")
     const updateBtn = document.getElementById("update-btn")
 
     initFolder();
     initDelete();
+}
+
+function initUser() {
+    const addUserBtn = document.getElementById("add-user-btn");
+    addUserBtn.addEventListener("click", async () => {
+        const selectFolder = getSelectedFolderId();
+        if (selectFolder) {
+            await windowCreateUser();
+        } else {
+            notifyWarning("Выберите папку, в которой хотите создать пользователя.")
+        }
+    })
 }
 
 function initDelete() {
