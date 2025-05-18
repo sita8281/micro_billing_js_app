@@ -251,7 +251,7 @@ class HttpClient {
   }
 
   async getTariffs() {
-    return this._get('/tariffs');
+    return this._get('/tariffs/');
   }
 
   async deleteTariff(tariffId) {
