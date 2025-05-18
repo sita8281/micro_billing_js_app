@@ -1,7 +1,7 @@
 const apiHost = 'onnet.ru'
-const apiPort = 80
+const apiPort = 443
 
-const apiUrl = 'http://'+apiHost+':'+apiPort+'/api/manage'
+const apiUrl = 'https://'+apiHost+':'+apiPort+'/api/manage'
 const apiAuthUrl = apiUrl + '/auth/'
 const apiFoldersUrl = apiUrl + '/folders'
 const apiUsersUrl = apiUrl + '/users'
