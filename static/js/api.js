@@ -53,7 +53,7 @@ class HttpClient {
 
       const response = await fetch(`${this.baseUrl}${url}`, config);
       clearTimeout(timeoutId);
-
+      
       if (!response.ok) {
         const errorData = await this._parseResponse(response);
         return errorData;
@@ -162,7 +162,7 @@ class HttpClient {
 
   // Users
   async createUser({ name, poolId, folderId, password, login, role }) {
-    return this._post('/users', {
+    return this._post('/users/', {
       name,
       pool_id: poolId,
       folder_id: folderId,
@@ -194,7 +194,7 @@ class HttpClient {
 
   // IP Pools
   async getIpPools() {
-    return this._get('/ip_pools');
+    return this._get('/ip_pools/');
   }
 
   async createIpPool(name, start, end, isDefault = false) {

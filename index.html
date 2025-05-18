@@ -70,10 +70,38 @@
 		</sl-dialog>
 		
 		<!-- Окно создания пользователя -->
-		<sl-dialog label="Создание пользователя" class="create-user-window"></sl-dialog>
-		<div>1234</div>
-		<sl-button slot="footer" variant="primary" class="window-create-user">Создать</sl-button>
-		<sl-button slot="footer" variant="primary" class="close-user-window">Закрыть</sl-button>
+		<sl-dialog label="Создание пользователя" class="create-user-window">
+			<div>
+				<sl-input placeholder="Название" class="input-name">
+					<sl-icon name="card-text" slot="prefix"></sl-icon>
+				</sl-input>
+				<br>
+
+				<sl-input placeholder="Логин" class="input-login">
+					<sl-icon name="person-fill" slot="prefix"></sl-icon>
+				</sl-input>
+				<br>
+
+				<sl-input placeholder="Пароль" class="input-password">
+					<sl-icon name="lock-fill" slot="prefix"></sl-icon>
+				</sl-input>
+				<br>
+
+				<sl-select placeholder="Уровень прав" class="select-rights">
+					<sl-option value="user">Пользователь</sl-option>
+					<sl-option value="operator">Оператор</sl-option>
+					<sl-option value="admin">Администратор</sl-option>
+				</sl-select>
+				<br>
+
+				<sl-select placeholder="IP пул" class="select-ip-pool">
+				</sl-select>
+
+
+			</div>
+			<sl-button slot="footer" variant="primary" class="window-create-user">Создать</sl-button>
+			<sl-button slot="footer" variant="primary" class="close-user-window">Закрыть</sl-button>
+		</sl-dialog>
 	</div>
 
 </body>
