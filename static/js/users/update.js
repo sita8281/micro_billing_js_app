@@ -6,7 +6,6 @@ import { windowUpdateUser, windowUpdatedUserGetData, windowWait } from "../windo
 async function updateUserWithServer() { 
     const window = await windowUpdateUser();
     
-
     while (true) {
         const state = await windowWait();
         if (!state) {

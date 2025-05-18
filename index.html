@@ -111,7 +111,7 @@
 
 		<!-- Окно редактирования пользователя -->
 		<sl-dialog label="Редактирование пользователя" class="update-user-window" style="--width: 90vw;">
-			<sl-tab-group>
+			<sl-tab-group style="min-height: 70vh;">
   				<sl-tab slot="nav" panel="data">Редактирование</sl-tab>
   				<sl-tab slot="nav" panel="status">Статус</sl-tab>
   				<sl-tab slot="nav" panel="info">Информация</sl-tab>
@@ -130,19 +130,62 @@
 					<sl-input placeholder="Пароль" class="input-update-password">
 						<sl-icon name="lock-fill" slot="prefix"></sl-icon>
 					</sl-input>
-					<br>
+
+					<sl-divider></sl-divider>
 
 					<sl-select label="IP пул" class="select-update-pool">
 					</sl-select>
-					<br>
+
+					<sl-divider></sl-divider>
 
 					<sl-select label="Тарифный план" class="select-update-tariff">
 					</sl-select>
-				<br>
+					<br>
+
+					<sl-switch checked style="margin-left: 5px;" class="switch-update-unlim">Безлимитный доступ</sl-switch>
+					<br>
+
+					<sl-divider></sl-divider>
+
+					<sl-switch checked style="margin-left: 5px;" class="switch-update-individual-tariff">Индивидуальный тариф</sl-switch>
+					<br><br>
+
+					<sl-input label="Сумма" class="input-update-tariff-sum">
+						<sl-icon name="cash-stack" slot="prefix"></sl-icon>
+					</sl-input>
+					<br>
+
+					<sl-input label="Скорость отдачи" class="input-update-tariff-upload">
+						<sl-icon name="upload" slot="prefix"></sl-icon>
+					</sl-input>
+					<br>
+
+					<sl-input label="Скорость скачивания" class="input-update-tariff-download">
+						<sl-icon name="download" slot="prefix"></sl-icon>
+					</sl-input>
+
+					<sl-divider></sl-divider>
+					
+					<sl-switch checked style="margin-left: 5px;" class="switch-update-self-block">Добровольная блокировка</sl-switch>
+					<br><br>
+
+					<sl-switch checked style="margin-left: 5px;" class="switch-update-disable-auth">Запретить авторизацию</sl-switch>
+					<br><br>
+
+					<sl-switch checked style="margin-left: 5px;" class="switch-update-disable-lk">Отключить личный кабинет</sl-switch>
+					<br><br>
+
+					<sl-switch checked style="margin-left: 5px;" class="switch-update-disable-lk-services">Скрыть тарифы и услуги в ЛК</sl-switch>
+					<br><br>
+
 
 				</sl-tab-panel>
-  				<sl-tab-panel name="status">This is the custom tab panel.</sl-tab-panel>
-  				<sl-tab-panel name="info">This is the advanced tab panel.</sl-tab-panel>
+  				<sl-tab-panel name="status">
+					<div class="user-status-container" style="display: flex; flex-direction: column;"></div>
+				</sl-tab-panel>
+  				<sl-tab-panel name="info">
+					<div class="user-information-container" style="display: flex; flex-direction: column;"></div>
+				</sl-tab-panel>
 			</sl-tab-group>
 			<sl-button slot="footer" variant="primary" class="save-user-update">Сохранить</sl-button>
 			<sl-button slot="footer" variant="primary" class="close-user-update">Закрыть</sl-button>
