@@ -1,30 +1,22 @@
 import { httpClient } from "../api.js";
-import { notifyError, getSelectedUserId, formatTimeDiff } from "../utils.js";
+import { notifyError, getSelectedUserId, formatTimeDiff, showLoading, hideLoading } from "../utils.js";
 
 
 const window = document.querySelector('.update-user-window');
 
 
 async function windowUpdateUser() {
-    // const response = await httpClient.getIpPools();
-    // if (response.status != 200) {
-    //     notifyError("Не удалось загрузить список пулов с сервера")
-    // };
-    // const pools = response.payload.pools;
-    // let htmlSelectPools = '';
+    try {
+        showLoading();
+        if (!await updateData()) {
+            notifyError("Не удалось получить данные пользователя с сервера")
+            return;
+        }
 
-    // pools.map((item) => {
-    //     htmlSelectPools += `<sl-option value="${item.id}">${item.name}</sl-option>`
-    // })
-    // selectPools.innerHTML = htmlSelectPools;
-    // selectPools.value = '';
-
-    if (!await updateData()) {
-        notifyError("Не удалось получить данные пользователя с сервера")
-        return;
+        window.show();
+    } finally {
+        hideLoading();
     }
-
-    window.show();
     return window;
 }
 
@@ -185,20 +177,28 @@ function changeStateSwitch(state, switchElement) {
 }
 
 function getStateSwitch(switchElement) {
-    if (switchElement) {
+    if (switchElement.hasAttribute('checked')) {
         return true;
     }
     return false;
 }
 
-function windowUpdatedUserGetData() {
+function windowUserData() {
     return {
-        name: nameInput.value,
-        login: loginInput.value,
-        password: passwordInput.value,
-        right: selectRights.value,
-        pool: selectPools.value,
-        folder: getSelectedFolderId()
+        name: document.querySelector('.input-update-name').value,
+        login: document.querySelector('.input-update-login').value,
+        password: document.querySelector('.input-update-password').value,
+        tariff_sum: Number(document.querySelector('.input-update-tariff-sum').value),
+        tariff_upload: Number(document.querySelector('.input-update-tariff-upload').value),
+        tariff_download: Number(document.querySelector('.input-update-tariff-download').value),
+        pool_id: Number(document.querySelector('.select-update-pool').value),
+        tariff_id: Number(document.querySelector('.select-update-tariff').value),
+        unlimited: getStateSwitch(document.querySelector('.switch-update-unlim')),
+        individual_tariff: getStateSwitch(document.querySelector('.switch-update-individual-tariff')),
+        self_blocked: getStateSwitch(document.querySelector('.switch-update-self-block')),
+        blocked: getStateSwitch(document.querySelector('.switch-update-disable-auth')),
+        disable_cabinet: getStateSwitch(document.querySelector('.switch-update-disable-lk')),
+        disable_cabinet_tariffs: getStateSwitch(document.querySelector('.switch-update-disable-lk-services'))
     }
 }
 
@@ -210,4 +210,4 @@ function windowShow() {
     window.show();
 }
 
-export { windowUpdateUser, windowUpdatedUserGetData, windowHide, windowShow, windowWait };
+export { windowUpdateUser, windowUserData, windowHide, windowShow, windowWait };
