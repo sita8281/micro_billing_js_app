@@ -1,5 +1,5 @@
 import { httpClient } from "../api.js";
-import { notifyError, getSelectedUserId } from "../utils.js";
+import { notifyError, getSelectedUserId, formatTimeDiff } from "../utils.js";
 
 
 const window = document.querySelector('.update-user-window');
@@ -119,15 +119,60 @@ async function updateData() {
     const userStatusContainer = document.querySelector('.user-status-container');
 
     let htmlStatusContainer = '';
-    const connectStatus = userData.payload.status == 'online' ? ["в сети", "--sl-color-success-500"] : ["не в сети", "--sl-color-danger-500"]
+    const balanceBlock = userData.payload.balance_blocked == true ? '<sl-tag variant="danger">финансовая блокировка</sl-tag>' : false
+    const authDisable = userData.payload.blocked == true ? '<sl-tag variant="danger">авторизация запрещена</sl-tag>' : false
+    const selfBlocked = userData.payload.self_blocked == true ? '<sl-tag variant="warning">добровольная блокировка</sl-tag>' : false
+    const connectStatus = userData.payload.status == 'online' ? '<sl-tag variant="success">в сети</sl-tag>' : '<sl-tag variant="neutral">не в сети</sl-tag>'
+    const downloadBytes = `<sl-format-bytes value="${userData.payload.download_bytes}"></sl-format-bytes>`;
+    const uploadBytes = `<sl-format-bytes value="${userData.payload.upload_bytes}"></sl-format-bytes>`;
+    const startSessionDate = `<sl-format-date date="${userData.payload.start_session_at}" lang="ru" hour="numeric" minute="numeric" year="numeric" month="numeric" day="numeric"></sl-format-date>`
+    const dutySession = formatTimeDiff(userData.payload.start_session_at);
+    const nasIp = userData.payload.nas_ip
+    const callerId = userData.payload.caller_address
+    const userIp = userData.payload.ip
+
+    if (!balanceBlock && !authDisable && !selfBlocked) {
+        htmlStatusContainer += getHtmlStatusLine("Статус пользователя", '<sl-tag variant="primary">активен</sl-tag>');
+    } else {
+        let htmlStatus = '';
+        if (balanceBlock) {
+            htmlStatus += balanceBlock + ' ';
+        }
+        if (authDisable) {
+            htmlStatus += authDisable + ' ';
+        }
+        if (selfBlocked) {
+            htmlStatus += selfBlocked + ' ';
+        }
+
+        htmlStatusContainer += getHtmlStatusLine("Статус пользователя", htmlStatus);
+    }
     
-    htmlStatusContainer += `<sl-input label="Состояние сессии" size="small" value="${connectStatus[0]}" style="background-color:${connectStatus[1]}" readonly>
-		<sl-icon name="info-circle-fill" slot="prefix"></sl-icon>
-    </sl-input> <br>`
+
+    htmlStatusContainer += getHtmlStatusLine("Состояние сессии", connectStatus);
+    if (userData.payload.status == 'online') {
+        htmlStatusContainer += getHtmlStatusLine("Скачано", downloadBytes);
+        htmlStatusContainer += getHtmlStatusLine("Отдано", uploadBytes);
+        htmlStatusContainer += getHtmlStatusLine("Дата начала сессии", startSessionDate);
+        htmlStatusContainer += getHtmlStatusLine("Продолжительность сессии", dutySession);
+        htmlStatusContainer += getHtmlStatusLine("NAS IP", nasIp);
+        htmlStatusContainer += getHtmlStatusLine("IP источника", callerId);
+        htmlStatusContainer += getHtmlStatusLine("IP пользователя", userIp);
+    }
+
     
     userStatusContainer.innerHTML = htmlStatusContainer;
 
     return true;
+}
+
+function getHtmlStatusLine(label, text) {
+    return `<sl-card class="card-header" style="--padding: 5px;">
+        <div slot="header">
+            ${label}
+        </div>
+        ${text}
+    </sl-card> <br>`
 }
 
 function changeStateSwitch(state, switchElement) {
