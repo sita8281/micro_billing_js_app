@@ -4,6 +4,7 @@ import { deleteFolderWithServer } from "./folders/delete.js";
 import { deleteUserWithServer } from "./users/delete.js";
 import { createUserWithServer } from "./users/create.js";
 import { updateUserWithServer } from "./users/update.js";
+import { balanceUserWithServer } from "./users/balance.js"
 
 
 function initTopPanelButtons() {
@@ -15,6 +16,16 @@ function initTopPanelButtons() {
 function initUser() {
     const addUserBtn = document.getElementById("add-user-btn");
     const updateBtn = document.getElementById("change-btn")
+    const balanceBtn = document.getElementById("balance-btn")
+
+    balanceBtn.addEventListener("click", async () => {
+        const selectUser = getSelectedUserId();
+        if (selectUser) {
+            await balanceUserWithServer();
+        } else {
+            notifyWarning("Выберите пользователя")
+        }
+    });
 
     addUserBtn.addEventListener("click", async () => {
         const selectFolder = getSelectedFolderId();

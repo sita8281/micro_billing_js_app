@@ -33,9 +33,9 @@
 			<sl-icon-button name="trash3" id="delete-btn" style="font-size: 1.5rem;"></sl-icon-button>
 			<sl-icon-button name="arrow-repeat" id="update-btn" style="font-size: 1.5rem;"></sl-icon-button>
 			<sl-icon-button name="pencil" id="change-btn" style="font-size: 1.5rem;"></sl-icon-button>
-			<sl-icon-button name="currency-dollar" id="change-btn" style="font-size: 1.5rem;"></sl-icon-button>
-			<sl-icon-button name="bar-chart-line" id="change-btn" style="font-size: 1.5rem;"></sl-icon-button>
-			<sl-icon-button name="power" id="change-btn" style="font-size: 1.5rem;"></sl-icon-button>
+			<sl-icon-button name="currency-dollar" id="balance-btn" style="font-size: 1.5rem;"></sl-icon-button>
+			<sl-icon-button name="bar-chart-line" id="stat-btn" style="font-size: 1.5rem;"></sl-icon-button>
+			<sl-icon-button name="power" id="disconnect-btn" style="font-size: 1.5rem;"></sl-icon-button>
 
 		</div>
 		
@@ -194,7 +194,23 @@
 			<sl-button slot="footer" variant="primary" class="save-user-update">Сохранить</sl-button>
 			<sl-button slot="footer" variant="primary" class="close-user-update">Закрыть</sl-button>
 		</sl-dialog>
+
+
+		<!-- Окно финансовых операций -->
+		<sl-dialog label="Финансовые операции" class="balance-user-window">
+			<div>
+				<label class="balance-user-label">Текущий баланс: ?</label>
+				<sl-input placeholder="Сумма" class="input-balance-sum">
+					<sl-icon name="card-text" slot="prefix"></sl-icon>
+				</sl-input>
+			</div>
+			<sl-button slot="footer" variant="primary" class="deposit-balance-user">Пополнить</sl-button>
+			<sl-button slot="footer" variant="primary" class="take-balance-user">Списать</sl-button>
+			<sl-button slot="footer" variant="primary" class="close-balance-window">Закрыть</sl-button>
+		</sl-dialog>
 	</div>
+
+	
 
 </body>
 </html>
