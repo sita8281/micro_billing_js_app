@@ -5,11 +5,16 @@ import { windowUpdateUser, windowUserData, windowWait } from "../windows/update_
 
 async function updateUserWithServer() { 
     const window = await windowUpdateUser();
-    const userData = windowUserData();
+    let userData = windowUserData();
     
     
     while (true) {
+        console.log('ожидание ввода...');
+        
         const state = await windowWait();
+
+        console.log('получено сообщение от окна ' + state)
+
         if (!state) {
             window.hide();
             return;
@@ -18,13 +23,18 @@ async function updateUserWithServer() {
 
         if (Object.keys(updates).length === 0) {
             notifyInfo('Не найдено изменений, сохранять нечего')
+            continue;
         }
         const response = await httpClient.updateUser(getSelectedUserId(), updates);
+        
         if (response.status == 200) {
             notifySuccess(response.description);
+            userData = windowUserData();
+            continue;
         }
         if (response.status != 200) {
             notifyWarning(response.description);
+            continue;
         }
     }
     
