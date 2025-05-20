@@ -200,9 +200,18 @@
 		<sl-dialog label="Финансовые операции" class="balance-user-window">
 			<div>
 				<label class="balance-user-label">Текущий баланс: ?</label>
-				<sl-input placeholder="Сумма" class="input-balance-sum">
-					<sl-icon name="card-text" slot="prefix"></sl-icon>
+				<br>
+				<br>
+
+				<sl-input placeholder="Комментарий (не обязтельно)" class="input-balance-comment">
+					<sl-icon name="chat-dots" slot="prefix"></sl-icon>
 				</sl-input>
+				<br>
+
+				<sl-input placeholder="Сумма" class="input-balance-sum">
+					<sl-icon name="cash-coin" slot="prefix"></sl-icon>
+				</sl-input>
+
 			</div>
 			<sl-button slot="footer" variant="primary" class="deposit-balance-user">Пополнить</sl-button>
 			<sl-button slot="footer" variant="primary" class="take-balance-user">Списать</sl-button>

@@ -28,16 +28,12 @@ async function createUserWithServer() {
         if (response.status == 201) {
             notifySuccess(response.description);
             window.hide();
+            return;
         } else {
             notifyWarning(response.description)
         }
         
     }
-    // const response = await httpClient.createUser();
-    // if (response.status == 200) {
-    //     notifyInfo(response.description);
-    // }
-    
 }
 
 export { createUserWithServer };

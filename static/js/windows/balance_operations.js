@@ -6,36 +6,52 @@ const window = document.querySelector('.balance-user-window');
 
 
 async function windowBalanceUser() {
-    const response = await httpClient.getUser();
-    if (response.status != 200) {
+    const updatedLabelStatus = await updateLabel();
+    if (!updatedLabelStatus) {
         notifyError("Не удалось загрузить данные о балансе пользователя");
+        return false;
     };
-    const pools = response.payload.pools;
-    let htmlSelectPools = '';
-
-    pools.map((item) => {
-        htmlSelectPools += `<sl-option value="${item.id}">${item.name}</sl-option>`
-    })
-    selectPools.innerHTML = htmlSelectPools;
-    selectPools.value = '';
-
+    clearInputs();
     window.show();
     return window;
 }
 
 async function windowWait() {
-    const createBtn = document.querySelector('.window-create-user');
-    const closeBtn = document.querySelector('.close-user-window');
+    const takeBtn = document.querySelector('.take-balance-user');
+    const depositBtn = document.querySelector('.deposit-balance-user');
+    const closeBtn = document.querySelector('.close-balance-window');
 
     return new Promise((resolve) => {
         closeBtn.addEventListener("click", () => {
             window.hide();
-            resolve(false);
+            resolve('close');
         })
-        createBtn.addEventListener("click", () => {
-            resolve(true);
+        depositBtn.addEventListener("click", () => {
+            resolve('deposit');
+        })
+        takeBtn.addEventListener("click", () => {
+            resolve('take');
         })
     })
+}
+
+async function updateLabel() {
+    const label = document.querySelector('.balance-user-label');
+    const response = await httpClient.getUser(getSelectedUserId());
+    if (response.status == 200) {
+        label.innerHTML = `Текущий баланс пользователя: ${response.payload.balance} Руб`
+        return true;
+    };
+    return false;
+}
+
+function clearInputs() {
+    document.querySelector('.input-balance-sum').value = '';
+    document.querySelector('.input-balance-comment').value = '';
+}
+
+function getSum() {
+    return Number(document.querySelector('.input-balance-sum').value);
 }
 
 function windowHide() {
@@ -46,4 +62,4 @@ function windowShow() {
     window.show();
 }
 
-export { windowCreateUser, windowCreateUserGetData, windowHide, windowShow, windowWait };
+export { windowHide, windowShow, windowWait, windowBalanceUser, getSum, updateLabel, clearInputs };

@@ -5,6 +5,9 @@ import { windowUpdateUser, windowUserData, windowWait } from "../windows/update_
 
 async function updateUserWithServer() { 
     const window = await windowUpdateUser();
+    if (!window) {
+        return;
+    }
     let userData = windowUserData();
     
     
