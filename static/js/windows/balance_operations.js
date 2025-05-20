@@ -38,6 +38,10 @@ async function windowWait() {
     })
 }
 
+async function updateLabel() {
+    
+}
+
 function windowHide() {
     window.hide();
 }
@@ -46,4 +50,4 @@ function windowShow() {
     window.show();
 }
 
-export { windowCreateUser, windowCreateUserGetData, windowHide, windowShow, windowWait };
+export { windowHide, windowShow, windowWait };

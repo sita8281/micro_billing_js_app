@@ -1,6 +1,6 @@
 import { httpClient } from "../api.js";
 import { notifyInfo, notifyWarning, getNodeTreeview, notifySuccess } from "../utils.js";
-import { windowCreateUser, windowCreateUserGetData, windowWait } from "../windows/balance_operations.js";
+import { windowWait } from "../windows/balance_operations.js";
 
 
 async function balanceUserWithServer() { 
