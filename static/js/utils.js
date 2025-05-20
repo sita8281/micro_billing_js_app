@@ -1,5 +1,9 @@
-function alertHandlerResponses(response) {
-    
+function showLoading() {
+    document.querySelector('.loading-pass').style.display = 'flex';
+}
+
+function hideLoading() {
+    document.querySelector('.loading-pass').style.display = 'none';
 }
 
 function escapeHtml(html) {
@@ -108,5 +112,7 @@ export { notify,
     getSelectedFolderId,
     getSelectedUserId, 
     getNodeTreeview,
-    formatTimeDiff
+    formatTimeDiff,
+    showLoading,
+    hideLoading
 };

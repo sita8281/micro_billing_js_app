@@ -1,15 +1,9 @@
 import { httpClient as client } from "./api.js";
 import { apiFoldersUrl } from "./config.js";
-import { notifyError, notifyWarning } from "./utils.js";
+import { notifyError, notifyWarning, showLoading, hideLoading } from "./utils.js";
 
 
-function showLoading() {
-    document.querySelector('.loading-pass').style.display = 'flex';
-}
 
-function hideLoading() {
-    document.querySelector('.loading-pass').style.display = 'none';
-}
 
 function getHtmlName(user) {
     let status = user.status == 'online' ? '->' : '';
