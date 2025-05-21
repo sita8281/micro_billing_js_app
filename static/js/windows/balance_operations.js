@@ -26,6 +26,9 @@ async function windowWait() {
             window.hide();
             resolve('close');
         })
+        window.addEventListener("sl-hide", () => {
+            resolve('close');
+        })
         depositBtn.addEventListener("click", () => {
             resolve('deposit');
         })

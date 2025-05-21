@@ -29,6 +29,9 @@ async function windowWait() {
             window.hide();
             resolve(false);
         })
+        window.addEventListener("sl-hide", () => {
+            resolve(false);
+        })
         saveBtn.addEventListener("click", () => {
             resolve(true);
         })

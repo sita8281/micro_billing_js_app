@@ -1,5 +1,6 @@
 function windowAsk(name, message) {
     const window = document.querySelector('.delete-folder-window');
+    
     const text = document.querySelector('.delete-folder-window span');
     window.setAttribute('label', name);
     text.innerHTML = message;
@@ -11,6 +12,9 @@ function windowAsk(name, message) {
     return new Promise((resolve) => {
         noBtn.addEventListener("click", () => {
             window.hide();
+            resolve(false);
+        })
+        window.addEventListener("sl-hide", () => {
             resolve(false);
         })
         yesBtn.addEventListener("click", () => {

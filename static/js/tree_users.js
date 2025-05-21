@@ -6,7 +6,7 @@ import { notifyError, notifyWarning, showLoading, hideLoading } from "./utils.js
 
 
 function getHtmlName(user) {
-    let status = user.status == 'online' ? '->' : '';
+    let status = user.status == 'online' ? '▶' : '';
     let statusColor = user.status == 'online' ? '#175616' : '#333';
     let name = `${status} ${user.name} <${user.login}>`;
     return `<label style="color: ${statusColor}; cursor: pointer;">${name}</label>`
