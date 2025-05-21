@@ -145,6 +145,7 @@ async function updateData() {
     
 
     htmlStatusContainer += getHtmlStatusLine("Состояние сессии", connectStatus);
+    htmlStatusContainer += getHtmlStatusLine("IP пользователя", userIp);
     if (userData.payload.status == 'online') {
         htmlStatusContainer += getHtmlStatusLine("Скачано", downloadBytes);
         htmlStatusContainer += getHtmlStatusLine("Отдано", uploadBytes);
@@ -152,7 +153,7 @@ async function updateData() {
         htmlStatusContainer += getHtmlStatusLine("Продолжительность сессии", dutySession);
         htmlStatusContainer += getHtmlStatusLine("NAS IP", nasIp);
         htmlStatusContainer += getHtmlStatusLine("IP источника", callerId);
-        htmlStatusContainer += getHtmlStatusLine("IP пользователя", userIp);
+        
     }
 
     
@@ -213,4 +214,4 @@ function windowShow() {
     window.show();
 }
 
-export { windowUpdateUser, windowUserData, windowHide, windowShow, windowWait };
+export { windowUpdateUser, windowUserData, windowHide, windowShow, windowWait, updateData };
