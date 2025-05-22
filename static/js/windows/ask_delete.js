@@ -14,8 +14,8 @@ function windowAsk(name, message) {
             window.hide();
             resolve(false);
         })
-        window.addEventListener("sl-hide", () => {
-            resolve(false);
+        window.addEventListener("sl-hide", (e) => {
+            if (e.target === window) {resolve(false)};
         })
         yesBtn.addEventListener("click", () => {
             window.hide();
