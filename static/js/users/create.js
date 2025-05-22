@@ -8,11 +8,15 @@ async function createUserWithServer() {
     
 
     while (true) {
+        console.log('ожидание сигнала')
         const state = await windowWait();
+        console.log('сигнал получен')
         if (!state) {
             return;
         }
         const data = windowCreateUserGetData();
+        console.log('данные получены');
+        
         
         const response = await httpClient.createUser({
             folderId: data.folder,

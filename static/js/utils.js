@@ -75,6 +75,27 @@ function getSelectedUserId() {
 
 }
 
+function getSelectedUserFolderNode() {
+    //получить папку выделенного пользователя
+    const usersTree = $.fn.zTree.getZTreeObj("treeDemo");
+    const selectedNodes = usersTree.getSelectedNodes();
+    if (selectedNodes.length < 1) {
+        return false;
+    }
+    const nodeId = selectedNodes[0].id
+    if (typeof nodeId == "string" && nodeId[0] == "f") {
+        return false;
+    }
+    const folderNode = selectedNodes[0].getParent();
+    const folderId = folderNode.id
+    if (typeof folderId == "string" && folderId[0] == "f") {
+        return folderNode;
+    }
+    return false;
+}
+
+
+
 function getNodeTreeview() {
     const usersTree = $.fn.zTree.getZTreeObj("treeDemo");
     const selectedNodes = usersTree.getSelectedNodes();
@@ -114,5 +135,6 @@ export { notify,
     getNodeTreeview,
     formatTimeDiff,
     showLoading,
-    hideLoading
+    hideLoading,
+    getSelectedUserFolderNode
 };
